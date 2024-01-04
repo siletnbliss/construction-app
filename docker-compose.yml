@@ -1,0 +1,13 @@
+version: "3.5"
+
+services:
+  api:
+    build: ./backend
+    restart: on-failure
+    env_file:
+      - .env.example
+      - .env
+      - ./backend/.env
+    expose:
+      - ${SERVER_PORT}
+    container_name: api
