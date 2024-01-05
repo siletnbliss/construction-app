@@ -44,8 +44,9 @@ export class UserRepository implements PersistUserPort {
     this.userModel.create(dto);
   }
 
-  async getUser(id: string): Promise<GetUserDto | null> {
-    return this.userModel.findById(id);
+  async getUser(email: string): Promise<GetUserDto | null> {
+    const user = await this.userModel.findOne({ email: email });
+    return { ...user?.toObject(), id: user._id.toString() };
   }
 
   // for testing purposes, create users if database is empty

@@ -13,5 +13,5 @@ export interface GetUserDto extends CreateUserDto {
 
 export abstract class PersistUserPort {
   abstract createUser(dto: CreateUserDto): Promise<void>;
-  abstract getUser(id: string): Promise<GetUserDto | null>;
+  abstract getUser(email: string): Promise<GetUserDto | null>;
 }
