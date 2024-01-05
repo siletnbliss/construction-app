@@ -9,6 +9,8 @@ import {
 } from './infraestructure/persistence/schemas/user.schema';
 import { PersistUserPort } from './application/port/out/persist-user.port';
 import { UserRepository } from './infraestructure/persistence/user.repository';
+import { HashUseCase } from './application/port/in/hash.use-case';
+import { HashService } from './application/services/hash.service';
 
 @Module({
   imports: [
@@ -20,6 +22,7 @@ import { UserRepository } from './infraestructure/persistence/user.repository';
       useClass: UserRepository,
     },
     { provide: RegisterUserUseCase, useClass: RegisterUserService },
+    { provide: HashUseCase, useClass: HashService },
   ],
   controllers: [],
 })
