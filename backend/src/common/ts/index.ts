@@ -1,4 +1,4 @@
 export interface EnvironmentVariables {
-  SERVER_PORT: number;
+  SERVER_PORT: string;
   MONGO_URL: string;
 }
