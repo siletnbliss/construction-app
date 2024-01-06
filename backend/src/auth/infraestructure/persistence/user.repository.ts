@@ -46,6 +46,7 @@ export class UserRepository implements PersistUserPort {
 
   async getUser(email: string): Promise<GetUserDto | null> {
     const user = await this.userModel.findOne({ email: email });
+    if (!user) return null;
     return { ...user?.toObject(), id: user._id.toString() };
   }
 

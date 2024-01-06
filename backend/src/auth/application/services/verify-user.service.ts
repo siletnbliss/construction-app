@@ -15,7 +15,9 @@ export class VerifyUserService implements VerifyUserUseCase {
   ) {}
 
   async verifyUser(dto: VerifyUserDto): Promise<VerifyUserResponse> {
-    const { password, ...user } = await this.persistPort.getUser(dto.email);
+    const response = await this.persistPort.getUser(dto.email);
+    if (!response) return null;
+    const { password, ...user } = response;
     const passwordMatch = await this.hashUseCase.compare(
       dto.password,
       password,

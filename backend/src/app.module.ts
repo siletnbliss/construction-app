@@ -6,8 +6,9 @@ import { ConfigModule } from '@nestjs/config';
 import { CommonModule } from './common/common.module';
 import { EnvService } from './common/application/services/env.service';
 import { AuthModule } from './auth/auth.module';
+import { CoreModule } from './core/core.module';
 
-const modules = [AuthModule];
+const modules = [AuthModule, CoreModule];
 
 @Module({
   imports: [
