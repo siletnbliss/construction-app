@@ -1,6 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 
+export type ProjectDocument = mongoose.HydratedDocument<Project>;
+
 @Schema()
 export class Project {
   @Prop({ required: true })
