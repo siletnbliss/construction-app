@@ -21,6 +21,7 @@ import { LoginUserUseCase } from './application/port/in/login-user.use-case';
 import { LoginUserService } from './application/services/login-user.service';
 import { JwtStrategy } from './infraestructure/passport/jwt.strategy';
 import { JwtAuthGuard } from './infraestructure/controller/guards/jwt-auth.guard';
+import { RolesGuard } from './infraestructure/controller/guards/roles.guard';
 
 @Module({
   imports: [
@@ -45,6 +46,10 @@ import { JwtAuthGuard } from './infraestructure/controller/guards/jwt-auth.guard
     LocalStrategy,
     JwtStrategy,
     { provide: 'APP_GUARD', useClass: JwtAuthGuard },
+    {
+      provide: 'APP_GUARD',
+      useClass: RolesGuard,
+    },
   ],
   controllers: [AuthController],
 })
