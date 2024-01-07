@@ -1,0 +1,11 @@
+.logo {
+  background-color: var(--tui-primary);
+}
+
+.highlight:hover div,
+.active {
+  background-color: var(--tui-primary);
+  display: block;
+  width: 100%;
+  transition: width 500ms;
+}

@@ -1,0 +1,25 @@
+<div
+  class="w-full items-center py-5 mx-auto flex justify-between tui-text_body-xl"
+>
+  <div class="logo">LOGO</div>
+  <ul class="flex gap-8">
+    @for (route of routes; track route) {
+    <li class="highlight">
+      <a class="px-2" [routerLink]="route.link"
+        ><span class="">{{ route.name }}</span>
+      </a>
+      <div
+        class="mt-1.5 h-0.5 w-0"
+        routerLinkActive="active"
+        [routerLink]="route.link"
+        [routerLinkActiveOptions]="{ exact: !!route.exact }"
+      ></div>
+    </li>
+    }
+  </ul>
+  <div>
+    <button routerLink="/login" appearance="primary" type="button" tuiButton>
+      Sign In
+    </button>
+  </div>
+</div>
