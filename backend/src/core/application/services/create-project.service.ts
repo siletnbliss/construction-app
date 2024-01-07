@@ -7,13 +7,14 @@ import {
   PersistProjectPort,
   PersistProjectResponse,
 } from '../port/out/persist-project.port';
-import { UploadFilePort } from 'src/storage/application/port/out/upload-file.port';
+import { RegisterFileUseCase } from 'src/storage/application/port/in/register-file.use-case';
+import { UploadFilePortDto } from 'src/storage/application/port/out/upload-file.port';
 
 @Injectable()
 export class CreateProjectService implements CreateProjectUseCase {
   constructor(
     private persistProjectPort: PersistProjectPort,
-    private uploadFilePort: UploadFilePort,
+    private registerFileUseCase: RegisterFileUseCase,
   ) {}
 
   async createProject(
@@ -22,15 +23,15 @@ export class CreateProjectService implements CreateProjectUseCase {
     if (!dto.images.length) {
       throw new BadRequestException('Missing images');
     }
-    const images = await Promise.all(
-      dto.images.map(
-        async (image) =>
-          await this.uploadFilePort.upload({
-            file: image,
-            folder: `/projects/${dto.ownerId}`,
-          }),
-      ),
+    const images = await this.registerFileUseCase.register(
+      ...dto.images.map<UploadFilePortDto>((img) => ({
+        file: img,
+        folder: `/projects/${dto.ownerId}`,
+      })),
     );
-    return this.persistProjectPort.save(dto);
+    return this.persistProjectPort.save({
+      ...dto,
+      images: images.map((img) => img.id),
+    });
   }
 }

@@ -25,6 +25,12 @@ export class Project {
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true })
   ownerId: string;
+
+  @Prop({
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'File' }],
+    required: true,
+  })
+  images: string[];
 }
 
 export const ProjectSchema = SchemaFactory.createForClass(Project);

@@ -1,7 +1,12 @@
 import { PersistProjectResponse } from './persist-project.port';
 
-export abstract class RetrieveProjectsPort {
-  abstract getOne(id: string): Promise<PersistProjectResponse>;
+export interface RetrieveProjectsPortResponse
+  extends Omit<PersistProjectResponse, 'images'> {
+  images: string[];
+}
 
-  abstract getMany(ownerId?: string): Promise<PersistProjectResponse[]>;
+export abstract class RetrieveProjectsPort {
+  abstract getOne(id: string): Promise<RetrieveProjectsPortResponse>;
+
+  abstract getMany(ownerId?: string): Promise<RetrieveProjectsPortResponse[]>;
 }

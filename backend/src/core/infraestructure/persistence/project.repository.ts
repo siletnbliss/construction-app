@@ -2,22 +2,34 @@ import { Injectable } from '@nestjs/common';
 import { InjectConnection, InjectModel } from '@nestjs/mongoose';
 import { Project } from './schemas/project.schema';
 import { Connection, FlattenMaps, Model, Types } from 'mongoose';
-import { CreateProjectUseCaseDto } from 'src/core/application/port/in/create-project.use-case';
-import { PersistProjectResponse } from 'src/core/application/port/out/persist-project.port';
+import {
+  PersistProjectPortDto,
+  PersistProjectResponse,
+} from 'src/core/application/port/out/persist-project.port';
 import { ProjectItem } from './schemas/project-item.schema';
 
 interface MapDto extends FlattenMaps<Project & { _id: Types.ObjectId }> {
   items: (ProjectItem & { _id: Types.ObjectId })[];
 }
-
-const ITEMS_LOOKUP = {
-  $lookup: {
-    from: 'projectitems',
-    localField: '_id',
-    foreignField: 'projectId',
-    as: 'items',
+// fetch project items and images
+const LOOKUP = [
+  {
+    $lookup: {
+      from: 'projectitems',
+      localField: '_id',
+      foreignField: 'projectId',
+      as: 'items',
+    },
   },
-};
+  {
+    $lookup: {
+      from: 'files',
+      localField: 'images',
+      foreignField: '_id',
+      as: 'images',
+    },
+  },
+];
 
 @Injectable()
 export class ProjectRepository {
@@ -39,11 +51,10 @@ export class ProjectRepository {
         id: it._id.toString(),
         projectId: it.projectId.toString(),
       })),
-      images: [],
     };
   }
 
-  async create(dto: CreateProjectUseCaseDto): Promise<PersistProjectResponse> {
+  async create(dto: PersistProjectPortDto): Promise<PersistProjectResponse> {
     const session = await this.connection.startSession();
     const { items: itemsDto, ...projectDto } = dto;
     const result = await session.withTransaction(async () => {
@@ -67,10 +78,10 @@ export class ProjectRepository {
     if (ownerId) {
       result = await this.projectModel.aggregate([
         { $match: { ownerId: new Types.ObjectId(ownerId) } },
-        ITEMS_LOOKUP,
+        ...LOOKUP,
       ]);
     } else {
-      result = await this.projectModel.aggregate([ITEMS_LOOKUP]);
+      result = await this.projectModel.aggregate(LOOKUP);
     }
     return result.map((r) => this.map(r));
   }
@@ -80,7 +91,7 @@ export class ProjectRepository {
       (
         await this.projectModel.aggregate([
           { $match: { _id: new Types.ObjectId(id) } },
-          ITEMS_LOOKUP,
+          ...LOOKUP,
         ])
       ).at(0),
     );
