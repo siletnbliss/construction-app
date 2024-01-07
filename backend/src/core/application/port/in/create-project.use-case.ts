@@ -8,6 +8,14 @@ export interface CreateProjectUseCaseDto {
   finishDate: string;
   published?: boolean;
   ownerId: string;
+  items: CreateProjectItemUseCaseDto[];
+}
+
+export interface CreateProjectItemUseCaseDto {
+  name: string;
+  description?: string;
+  quantity: number;
+  unitPrice: number;
 }
 
 export abstract class CreateProjectUseCase {

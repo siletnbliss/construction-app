@@ -6,11 +6,12 @@ import { ProjectRepository } from './project.repository';
 @Injectable()
 export class RetrieveProjectsAdapter implements RetrieveProjectsPort {
   constructor(private repo: ProjectRepository) {}
-  getOne(id: string): Promise<PersistProjectResponse> {
-    return this.repo.findOne(id);
+
+  async getOne(id: string): Promise<PersistProjectResponse> {
+    return await this.repo.findOne(id);
   }
 
-  getMany(ownerId?: string): Promise<PersistProjectResponse[]> {
+  async getMany(ownerId?: string): Promise<PersistProjectResponse[]> {
     return this.repo.findMany(ownerId);
   }
 }

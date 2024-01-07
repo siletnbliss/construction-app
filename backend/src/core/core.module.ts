@@ -16,10 +16,17 @@ import { GetProjectsByOwnerUseCase } from './application/port/in/get-projects-by
 import { GetProjectsByOwnerService } from './application/services/get-projects-by-owner.service';
 import { RetrieveProjectsPort } from './application/port/out/retrieve-projects.port';
 import { RetrieveProjectsAdapter } from './infraestructure/persistence/retrieve-projects.adapter';
+import {
+  ProjectItem,
+  ProjectItemSchema,
+} from './infraestructure/persistence/schemas/project-item.schema';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: Project.name, schema: ProjectSchema }]),
+    MongooseModule.forFeature([
+      { name: Project.name, schema: ProjectSchema },
+      { name: ProjectItem.name, schema: ProjectItemSchema },
+    ]),
   ],
   providers: [
     { provide: CreateProjectUseCase, useClass: CreateProjectService },
