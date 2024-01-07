@@ -8,6 +8,17 @@ services:
       - .env.example
       - .env
       - ./backend/.env
+    environment:
+      - MONGO_URL=mongodb://${MONGO_USER}:${MONGO_PASSWORD}@db:27017/
     expose:
       - ${SERVER_PORT}
     container_name: api
+  db:
+    image: mongo
+    restart: always
+    env_file:
+      - .env.example
+      - .env
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_USER}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASSWORD}
