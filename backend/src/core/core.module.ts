@@ -20,6 +20,7 @@ import {
   ProjectItem,
   ProjectItemSchema,
 } from './infraestructure/persistence/schemas/project-item.schema';
+import { StorageModule } from 'src/storage/storage.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import {
       { name: Project.name, schema: ProjectSchema },
       { name: ProjectItem.name, schema: ProjectItemSchema },
     ]),
+    StorageModule,
   ],
   providers: [
     { provide: CreateProjectUseCase, useClass: CreateProjectService },

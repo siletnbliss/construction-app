@@ -9,6 +9,7 @@ export interface CreateProjectUseCaseDto {
   published?: boolean;
   ownerId: string;
   items: CreateProjectItemUseCaseDto[];
+  images: Express.Multer.File[];
 }
 
 export interface CreateProjectItemUseCaseDto {

@@ -7,8 +7,9 @@ import { CommonModule } from './common/common.module';
 import { EnvService } from './common/application/services/env.service';
 import { AuthModule } from './auth/auth.module';
 import { CoreModule } from './core/core.module';
+import { StorageModule } from './storage/storage.module';
 
-const modules = [AuthModule, CoreModule];
+const modules = [AuthModule, CoreModule, StorageModule];
 
 @Module({
   imports: [

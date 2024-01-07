@@ -39,6 +39,7 @@ export class ProjectRepository {
         id: it._id.toString(),
         projectId: it.projectId.toString(),
       })),
+      images: [],
     };
   }
 
