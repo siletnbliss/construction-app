@@ -1,0 +1,22 @@
+<button
+  tuiIconButton
+  icon="tuiIconMenu"
+  type="button"
+  appearance="icon"
+  (click)="toggle(true)"
+  (tuiActiveZoneChange)="toggle(false)"
+>
+  <div *tuiSidebar="open(); direction: direction">
+    <div class="min-h-screen">
+      <button
+        icon="tuiIconClose"
+        tuiIconButton
+        type="button"
+        appearance="icon"
+        (click)="toggle(false)"
+        class="ml-auto"
+      ></button>
+      <ng-content />
+    </div>
+  </div>
+</button>
