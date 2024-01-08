@@ -35,6 +35,12 @@ import { CreateApplicationService } from './application/services/create-applicat
 import { PersistApplicationPort } from './application/port/out/persist-application.port';
 import { ApplicationRepository } from './infraestructure/persistence/application.repository';
 import { PersistApplicationAdapter } from './infraestructure/persistence/persist-application.adapter';
+import { GetProviderApplicationsUseCase } from './application/port/in/get-provider-applications.use-case';
+import { GetProviderApplicationsService } from './application/services/get-provider-applications.service';
+import { RetrieveApplicationsPort } from './application/port/out/retrieve-applications.port';
+import { RetrieveApplicationsAdapter } from './infraestructure/persistence/retrieve-applications.adapter';
+import { GetProjectApplicationsUseCase } from './application/port/in/get-project-applications.use-case';
+import { GetProjectApplicationsService } from './application/services/get-project-applications.service';
 
 @Module({
   imports: [
@@ -57,6 +63,19 @@ import { PersistApplicationAdapter } from './infraestructure/persistence/persist
     // applications
     { provide: CreateApplicationUseCase, useClass: CreateApplicationService },
     { provide: PersistApplicationPort, useClass: PersistApplicationAdapter },
+    {
+      provide: GetProviderApplicationsUseCase,
+      useClass: GetProviderApplicationsService,
+    },
+    {
+      provide: GetProjectApplicationsUseCase,
+      useClass: GetProjectApplicationsService,
+    },
+    {
+      provide: RetrieveApplicationsPort,
+      useClass: RetrieveApplicationsAdapter,
+    },
+
     ApplicationRepository,
   ],
   controllers: [ProjectController, ApplicationController],

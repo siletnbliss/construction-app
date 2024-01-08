@@ -9,6 +9,42 @@ type MapDto = Application & { _id: Types.ObjectId } & {
   items: (Supply & { _id: Types.ObjectId })[];
 };
 
+const BASE_LOOKUP = [
+  {
+    $lookup: {
+      from: 'supplies',
+      localField: '_id',
+      foreignField: 'applicationId',
+      as: 'items',
+    },
+  },
+];
+
+const PROJECT_LOOKUP = (projectId: string) => [
+  {
+    $match: {
+      projectId: new Types.ObjectId(projectId),
+    },
+  },
+];
+
+const PROVIDER_LOOKUP = (providerId: string) => [
+  {
+    $match: {
+      providerId: new Types.ObjectId(providerId),
+    },
+  },
+  {
+    $lookup: {
+      from: 'projects',
+      localField: 'projectId',
+      foreignField: '_id',
+      as: 'project',
+    },
+  },
+  { $unwind: '$project' },
+];
+
 @Injectable()
 export class ApplicationRepository {
   constructor(
@@ -54,5 +90,32 @@ export class ApplicationRepository {
       };
     });
     return this.map(result);
+  }
+
+  async findMany(dto: { projectId: string; providerId: string }) {
+    console.log({ projectId: dto.projectId });
+    const lookup = dto.projectId
+      ? PROJECT_LOOKUP(dto.projectId)
+      : PROVIDER_LOOKUP(dto.providerId as string);
+    const results = await this.applicationModel.aggregate([
+      ...BASE_LOOKUP,
+      ...lookup,
+    ]);
+    return results.map(this.map);
+  }
+
+  async findOne(dto: { projectId: string; providerId: string }) {
+    const result = await this.applicationModel.aggregate([
+      {
+        $match: {
+          projectId: new Types.ObjectId(dto.projectId),
+          providerId: new Types.ObjectId(dto.providerId),
+        },
+      },
+      ...BASE_LOOKUP,
+      ...PROVIDER_LOOKUP(dto.providerId),
+    ]);
+    if (!result.length) return null;
+    return this.map(result.at(0));
   }
 }

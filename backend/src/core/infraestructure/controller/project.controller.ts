@@ -25,13 +25,15 @@ import { GetProjectsUseCase } from 'src/core/application/port/in/get-projects.us
 import { GetProjectsByOwnerUseCase } from 'src/core/application/port/in/get-projects-by-owner.use-case';
 import { withUser } from 'src/common/infraestructure/controller/with-user';
 import { FilesInterceptor } from '@nestjs/platform-express';
+import { GetProjectApplicationsUseCase } from 'src/core/application/port/in/get-project-applications.use-case';
 
-@Controller('project')
+@Controller('construction/project')
 export class ProjectController {
   constructor(
     private createProjectUseCase: CreateProjectUseCase,
     private getProjectsUseCase: GetProjectsUseCase,
     private getProjectsByOwnerUserCase: GetProjectsByOwnerUseCase,
+    private getProjectApplicationsUseCase: GetProjectApplicationsUseCase,
   ) {}
 
   @Roles(Role.Constructor)
@@ -73,5 +75,10 @@ export class ProjectController {
     const project = await this.getProjectsUseCase.getOne(id);
     if (user.id !== project.ownerId) throw new ForbiddenException();
     return project;
+  }
+
+  @Get('/:id/application')
+  async getProjectApplications(@Param('id') id: string) {
+    return this.getProjectApplicationsUseCase.getApplications(id);
   }
 }
