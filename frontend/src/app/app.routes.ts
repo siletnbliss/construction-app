@@ -15,19 +15,23 @@ export const routes: Routes = [
         loadComponent: () => import('@/root/pages/landing/landing.component'),
       },
     ],
+    title: 'Marble Space',
   },
   {
     path: 'login',
+    title: 'Marble Space - Login',
     loadComponent: () => import('@/auth/pages/login/login.component'),
   },
   {
     path: 'construction',
+    title: 'Marble Space - Constructor',
     component: ConstructorLayoutComponent,
     canActivate: [ContructionGuard],
     children: [],
   },
   {
     path: 'supplier',
+    title: 'Marble Space - Supplier',
     component: SupplierLayoutComponent,
     canActivate: [SupplierGuard],
     children: [],
