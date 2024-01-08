@@ -1,0 +1,22 @@
+<div href="https://flowbite.com/" class="ps-2.5 mb-5">
+  <app-logo />
+</div>
+<ul class="space-y-2 font-medium">
+  @for (item of items; track item.link) {
+
+  <li
+    routerLinkActive="item-active"
+    [routerLink]="item.link"
+    class="flex font-medium items-center cursor-pointer gap-5 py-3 rounded-md px-10 item tui-text_body-l"
+  >
+    <tui-svg [src]="item.icon" />
+    <span>{{ item.title }}</span>
+  </li>
+  }
+  <li
+    class="flex font-medium items-center cursor-pointer gap-5 py-3 rounded-md px-10 item tui-text_body-l"
+  >
+    <tui-svg src="tuiIconLogOutLarge" />
+    <span>Sign Out</span>
+  </li>
+</ul>

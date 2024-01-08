@@ -1,0 +1,10 @@
+.item {
+  color: var(--tui-link);
+  &:hover {
+    background-color: var(--tui-secondary-hover);
+  }
+}
+
+.item-active {
+  background: var(--tui-secondary-hover) !important;
+}

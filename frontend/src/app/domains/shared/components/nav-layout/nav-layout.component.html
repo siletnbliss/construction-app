@@ -1,0 +1,18 @@
+<app-side-bar direction="left">
+  <div class="px-5">
+    <app-nav-layout-links [items]="items" />
+  </div>
+</app-side-bar>
+<aside
+  id="logo-sidebar"
+  class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
+  aria-label="Sidebar"
+>
+  <div class="h-full px-3 py-4 overflow-y-auto flex flex-col bg-gray-50">
+    <app-nav-layout-links [items]="items" />
+  </div>
+</aside>
+
+<div class="p-4 sm:ml-64">
+  <div class="p-4"><router-outlet /></div>
+</div>
