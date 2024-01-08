@@ -1,9 +1,13 @@
-import { CreateProjectUseCaseDto } from '../in/create-project.use-case';
+import {
+  CreateProjectItemUseCaseDto,
+  CreateProjectUseCaseDto,
+} from '../in/create-project.use-case';
 
 export interface PersistProjectResponse
   extends Omit<CreateProjectUseCaseDto, 'images'> {
   id: string;
   images: string[];
+  items: (CreateProjectItemUseCaseDto & { id: string })[];
 }
 
 export interface PersistProjectPortDto

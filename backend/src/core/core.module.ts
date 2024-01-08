@@ -21,23 +21,44 @@ import {
   ProjectItemSchema,
 } from './infraestructure/persistence/schemas/project-item.schema';
 import { StorageModule } from 'src/storage/storage.module';
+import {
+  Application,
+  ApplicationSchema,
+} from './infraestructure/persistence/schemas/application.schema';
+import {
+  Supply,
+  SupplySchema,
+} from './infraestructure/persistence/schemas/supply.schema';
+import { ApplicationController } from './infraestructure/controller/application.controller';
+import { CreateApplicationUseCase } from './application/port/in/create-application.use-case';
+import { CreateApplicationService } from './application/services/create-application.service';
+import { PersistApplicationPort } from './application/port/out/persist-application.port';
+import { ApplicationRepository } from './infraestructure/persistence/application.repository';
+import { PersistApplicationAdapter } from './infraestructure/persistence/persist-application.adapter';
 
 @Module({
   imports: [
     MongooseModule.forFeature([
       { name: Project.name, schema: ProjectSchema },
       { name: ProjectItem.name, schema: ProjectItemSchema },
+      { name: Application.name, schema: ApplicationSchema },
+      { name: Supply.name, schema: SupplySchema },
     ]),
     StorageModule,
   ],
   providers: [
+    // projects
     { provide: CreateProjectUseCase, useClass: CreateProjectService },
     { provide: PersistProjectPort, useClass: PersistProjectAdapter },
     { provide: GetProjectsUseCase, useClass: GetProjectsService },
     { provide: GetProjectsByOwnerUseCase, useClass: GetProjectsByOwnerService },
     { provide: RetrieveProjectsPort, useClass: RetrieveProjectsAdapter },
     ProjectRepository,
+    // applications
+    { provide: CreateApplicationUseCase, useClass: CreateApplicationService },
+    { provide: PersistApplicationPort, useClass: PersistApplicationAdapter },
+    ApplicationRepository,
   ],
-  controllers: [ProjectController],
+  controllers: [ProjectController, ApplicationController],
 })
 export class CoreModule {}
