@@ -9,6 +9,15 @@ import {
 } from '@angular/router';
 
 import { routes } from './app.routes';
+import {
+  provideHttpClient,
+  withFetch,
+  withInterceptors,
+} from '@angular/common/http';
+import {
+  authInterceptor,
+  logoutInterceptor,
+} from '@/auth/interceptors/auth.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -19,5 +28,9 @@ export const appConfig: ApplicationConfig = {
       withPreloading(PreloadAllModules)
     ),
     importProvidersFrom(TuiRootModule),
+    provideHttpClient(
+      withFetch(),
+      withInterceptors([authInterceptor, logoutInterceptor])
+    ),
   ],
 };

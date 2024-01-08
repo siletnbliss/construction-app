@@ -25,7 +25,8 @@
       "@/root/*": ["./src/app/domains/root/*"],
       "@/auth/*": ["./src/app/domains/auth/*"],
       "@/constructor/*": ["./src/app/domains/constructor/*"],
-      "@/supplier/*": ["./src/app/domains/supplier/*"]
+      "@/supplier/*": ["./src/app/domains/supplier/*"],
+      "@/environments/*": ["./src/environments/*"]
     }
   },
   "angularCompilerOptions": {
