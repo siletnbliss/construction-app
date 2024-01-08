@@ -1,0 +1,15 @@
+<!-- <div
+  style="grid-auto-rows: 1fr"
+  class="grid justify-items-center gap-4 grid-cols-1 sm:grid-cols-2 md:grid-col-3 xl:grid-cols-4"
+>
+  @for (project of projects; track project.id) {
+  <app-project-card [project]="project" />
+  }
+</div>
+ -->
+
+<div class="flex flex-wrap gap-8 justify-center items-stretch">
+  @for (project of projects; track project.id) {
+  <app-project-card [project]="project" />
+  }
+</div>

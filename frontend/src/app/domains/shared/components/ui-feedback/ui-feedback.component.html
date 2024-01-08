@@ -1,0 +1,18 @@
+<tui-loader size="l" class="w-full h-full" [showLoader]="loading">
+  @if (!loading && error) {
+  <tui-block-status>
+    <img src="assets/error.jpg" tuiSlot="top" />
+    <h4>Unexpected error</h4>
+    {{ errorMessage }}
+  </tui-block-status>
+  } @else if (!loading && empty) {
+  <tui-block-status>
+    <img src="assets/empty.jpg" tuiSlot="top" />
+    <h4>This is empty</h4>
+    {{ emptyMessage }}
+  </tui-block-status>
+  }
+</tui-loader>
+@if (!loading && !empty && !error) {
+<ng-content />
+}

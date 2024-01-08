@@ -1,0 +1,13 @@
+<div class="flex items-center mb-10 container justify-between">
+  <h3 class="tui-text_h4">Dashboard</h3>
+  <a routerLink="create-project" tuiButton>New Project</a>
+</div>
+<app-ui-feedback
+  [loading]="loading()"
+  [empty]="!projects().length"
+  [error]="error()"
+  emptyMessage="Try creating your fist project!"
+  errorMessage="Try reloading this page again"
+>
+  <app-project-list [projects]="projects()" />
+</app-ui-feedback>

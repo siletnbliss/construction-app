@@ -27,7 +27,15 @@ export const routes: Routes = [
     title: 'Marble Space - Constructor',
     component: ConstructorLayoutComponent,
     canActivate: [ContructionGuard],
-    children: [],
+    children: [
+      {
+        path: '',
+        loadComponent: () =>
+          import(
+            '@/constructor/pages/constructor-dashboard/constructor-dashboard.component'
+          ),
+      },
+    ],
   },
   {
     path: 'supplier',
