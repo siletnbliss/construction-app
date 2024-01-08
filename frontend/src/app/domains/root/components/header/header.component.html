@@ -1,7 +1,7 @@
 <div
   class="w-full items-center py-5 mx-auto flex justify-between tui-text_body-xl"
 >
-  <div class="logo">LOGO</div>
+  <div class="logo h-full w-56"><app-logo /></div>
   <ul class="flex gap-8">
     @for (route of routes; track route) {
     <li class="highlight">
@@ -18,7 +18,7 @@
     }
   </ul>
   <div>
-    <button routerLink="/login" appearance="primary" type="button" tuiButton>
+    <button routerLink="/login" appearance="secondary" type="button" tuiButton>
       Sign In
     </button>
   </div>

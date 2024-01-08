@@ -1,15 +1,17 @@
+import { LogoComponent } from '@/shared/components/logo/logo.component';
 import { Component } from '@angular/core';
-import {
-  RouterLinkActive,
-  RouterLinkWithHref,
-  RouterModule,
-} from '@angular/router';
+import { RouterLinkActive, RouterLinkWithHref } from '@angular/router';
 import { TuiButtonModule } from '@taiga-ui/core';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [TuiButtonModule, RouterLinkWithHref, RouterLinkActive],
+  imports: [
+    TuiButtonModule,
+    RouterLinkWithHref,
+    RouterLinkActive,
+    LogoComponent,
+  ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
