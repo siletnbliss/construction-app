@@ -1,23 +1,32 @@
 <div
   class="w-full items-center py-5 mx-auto flex justify-between tui-text_body-xl"
 >
-  <div class="logo h-full w-48"><app-logo /></div>
+  <div class="logo h-full w-48"><app-logo routerLink="/" /></div>
   <app-nav-links class="hidden md:inline" />
   <div class="hidden md:inline">
-    <button routerLink="/login" appearance="secondary" type="button" tuiButton>
+    <button
+      routerLink="/login"
+      shape="rounded"
+      appearance="secondary"
+      type="button"
+      tuiButton
+    >
       Sign In
     </button>
   </div>
   <div class="md:hidden inline">
     <app-side-bar>
-      <div class="flex flex-col h-full items-center justify-between">
+      <div
+        class="flex flex-col w-full px-10 h-full items-center justify-between"
+      >
         <app-nav-links />
         <button
           routerLink="/login"
           appearance="secondary"
           type="button"
           tuiButton
-          class="mt-10"
+          class="mt-10 w-5/6"
+          shape="rounded"
         >
           Sign In
         </button>
