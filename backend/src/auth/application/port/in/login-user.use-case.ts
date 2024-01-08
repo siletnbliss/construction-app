@@ -8,6 +8,7 @@ export interface LoginUserDto {
 
 export interface LoginUserResponse {
   token: string;
+  user: LoginUserDto;
 }
 
 export abstract class LoginUserUseCase {
