@@ -1,0 +1,80 @@
+<form
+  [formGroup]="form"
+  (ngSubmit)="handleSubmit()"
+  class="space-y-4 md:space-y-6 w-full"
+  action="#"
+>
+  <div class="tui-form__row">
+    <tui-input formControlName="title">
+      Project Title
+      <input class="input" tuiTextfield placeholder="Enter a title" />
+    </tui-input>
+    <tui-error
+      formControlName="title"
+      [error]="[] | tuiFieldError | async"
+    ></tui-error>
+  </div>
+  <div class="tui-form__row">
+    <tui-input formControlName="location">
+      Project Location
+      <input
+        class="input"
+        tuiTextfield
+        placeholder="Brief location of this project"
+      />
+    </tui-input>
+    <tui-error
+      formControlName="location"
+      [error]="[] | tuiFieldError | async"
+    ></tui-error>
+  </div>
+  <div class="tui-form__row">
+    <tui-textarea
+      formControlName="description"
+      class="tui-space_top-4"
+      [expandable]="true"
+    >
+      Project Description
+    </tui-textarea>
+    <tui-error
+      formControlName="description"
+      [error]="[] | tuiFieldError | async"
+    ></tui-error>
+  </div>
+  <div class="tui-form__row" tuiGroup>
+    <div>
+      <tui-input-date
+        [max]="form.touched ? form.getRawValue().finishDate : null"
+        formControlName="startDate"
+        tuiUnfinishedValidator="Finish filling the field"
+      >
+        Start Date
+      </tui-input-date>
+      <tui-error
+        formControlName="startDate"
+        [error]="[] | tuiFieldError | async"
+      ></tui-error>
+    </div>
+    <div>
+      <tui-input-date
+        [min]="form.getRawValue().startDate"
+        formControlName="finishDate"
+        tuiUnfinishedValidator="Finish filling the field"
+      >
+        Finish Date
+      </tui-input-date>
+      <tui-error
+        formControlName="finishDate"
+        [error]="[] | tuiFieldError | async"
+      ></tui-error>
+    </div>
+  </div>
+  <div class="tui-form__row">
+    <app-file-input
+      link="Choose image files"
+      label="of your project"
+      [control]="form.controls.images"
+    />
+  </div>
+  <button [disabled]="!form.valid" tuiButton>Continue</button>
+</form>

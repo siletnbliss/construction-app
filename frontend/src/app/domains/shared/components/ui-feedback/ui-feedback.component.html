@@ -14,5 +14,7 @@
   }
 </tui-loader>
 @if (!loading && !empty && !error) {
-<ng-content />
+<div [@tuiFadeIn]="{ value: '', params: { duration: 1000 } }">
+  <ng-content />
+</div>
 }

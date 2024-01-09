@@ -70,7 +70,8 @@
             type="submit"
             class="w-full"
             tuiButton
-            [disabled]="!form.valid"
+            [showLoader]="loading()"
+            [disabled]="!form.valid || loading()"
           >
             Sign in
           </button>

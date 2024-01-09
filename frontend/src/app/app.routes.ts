@@ -35,6 +35,16 @@ export const routes: Routes = [
             '@/constructor/pages/constructor-dashboard/constructor-dashboard.component'
           ),
       },
+      {
+        path: 'create-project',
+        loadComponent: () =>
+          import('@/constructor/pages/create-project/create-project.component'),
+      },
+      {
+        path: 'create-project/items',
+        loadComponent: () =>
+          import('@/constructor/pages/create-items/create-items.component'),
+      },
     ],
   },
   {

@@ -1,5 +1,9 @@
 import { Component, Input, computed } from '@angular/core';
-import { TuiLoaderModule } from '@taiga-ui/core';
+import {
+  TuiLoaderModule,
+  tuiDropdownAnimation,
+  tuiFadeIn,
+} from '@taiga-ui/core';
 import { TuiBlockStatusModule } from '@taiga-ui/layout';
 
 @Component({
@@ -8,6 +12,7 @@ import { TuiBlockStatusModule } from '@taiga-ui/layout';
   imports: [TuiLoaderModule, TuiBlockStatusModule],
   templateUrl: './ui-feedback.component.html',
   styleUrl: './ui-feedback.component.scss',
+  animations: [tuiFadeIn],
 })
 export class UiFeedbackComponent {
   @Input()

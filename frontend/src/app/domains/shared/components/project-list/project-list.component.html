@@ -8,7 +8,9 @@
 </div>
  -->
 
-<div class="flex flex-wrap gap-8 justify-center items-stretch">
+<div
+  class="flex flex-wrap gap-8 flex-col items-center justify-center lg:justify-start md:items-stretch md:flex-row"
+>
   @for (project of projects; track project.id) {
   <app-project-card [project]="project" />
   }

@@ -1,3 +1,8 @@
+export interface CreateProject
+  extends Omit<Project, 'id' | 'images' | 'ownerId'> {
+  images: File[];
+}
+
 export interface Project {
   id: string;
   title: string;

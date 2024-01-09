@@ -1,0 +1,80 @@
+<div class="space-y-4 md:space-y-6 w-full flex flex-col mb-10">
+  <button
+    shape="rounded"
+    icon="tuiIconPlus"
+    size="m"
+    class="ml-auto mb-10 justify-self-end"
+    appearance="accent"
+    tuiButton
+    (click)="addMore()"
+  >
+    Add More Items
+  </button>
+  <tui-elastic-container>
+    @for (form of itemControls.controls; track $index) {
+    <form [formGroup]="form" class="flex flex-col">
+      <div class="tui-form__row">
+        <tui-input formControlName="name">
+          Item name
+          <input class="input" tuiTextfield placeholder="Identify this item" />
+        </tui-input>
+        <tui-error
+          formControlName="name"
+          [error]="[] | tuiFieldError | async"
+        ></tui-error>
+      </div>
+
+      <div class="tui-form__row" tuiGroup>
+        <div>
+          <tui-input-number formControlName="quantity">
+            Item Quantity
+          </tui-input-number>
+          <tui-error
+            formControlName="quantity"
+            [error]="[] | tuiFieldError | async"
+          ></tui-error>
+        </div>
+        <div>
+          <tui-input-number
+            formControlName="unitPrice"
+            [tuiTextfieldPrefix]="'USD' | tuiCurrency"
+          >
+            Unit Price
+          </tui-input-number>
+          <tui-error
+            formControlName="quantity"
+            [error]="[] | tuiFieldError | async"
+          ></tui-error>
+        </div>
+      </div>
+      <button
+        (click)="remove($index)"
+        appearance="secondary"
+        icon="tuiIconClose"
+        tuiButton
+        size="s"
+        class="ml-auto mt-3"
+        [disabled]="itemControls.controls.length <= 1"
+      >
+        Remove
+      </button>
+      <hr
+        *ngIf="$index !== itemControls.controls.length - 1"
+        class="solid h-0.5 mx-20 my-12"
+      />
+    </form>
+    }
+  </tui-elastic-container>
+  <div tuiGroup class="w-80">
+    <button appearance="secondary" (click)="onBack()" tuiButton>Back</button>
+    <button
+      [disabled]="!itemControls.valid || loading()"
+      type="submit"
+      tuiButton
+      (click)="handleSubmit()"
+      [showLoader]="loading()"
+    >
+      Submit
+    </button>
+  </div>
+</div>

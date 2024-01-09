@@ -1,5 +1,5 @@
 <div
-  class="max-w-[80%] md:max-w-sm w-96 h-full bg-white border border-gray-200 rounded-lg shadow flex flex-col justify-between"
+  class="max-w-[100vw] w-96 h-full mx-auto bg-white border border-gray-200 rounded-lg shadow flex flex-col justify-between"
 >
   <a [routerLink]="['project', project.id]" class="overflow-hidden">
     <img
@@ -14,13 +14,14 @@
         {{ project.title }}
       </h5>
     </a>
-    <div class="my-2 flex pr-20 text-gray-500 justify-between flex-wrap">
-      <p class="">
-        <tui-svg src="tuiIconMapPin" /><span>{{ project.location }}</span>
-      </p>
+    <div class="my-2 flex gap-2 text-gray-500 justify-between flex-wrap">
+      <div class="flex">
+        <tui-svg src="tuiIconMapPin" />
+        <p class="line-clamp-2">{{ project.location }}</p>
+      </div>
       <div class="flex">
         <tui-svg src="tuiIconCalendar" />
-        <div>
+        <div class="text-right">
           <p class="">{{ project.startDate | date }}</p>
           <p>{{ project.finishDate | date }}</p>
         </div>

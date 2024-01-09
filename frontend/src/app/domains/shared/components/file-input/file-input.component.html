@@ -1,0 +1,31 @@
+<tui-input-files
+  accept="image/*"
+  [formControl]="control"
+  [multiple]="true"
+  (ngModelChange)="control.markAsTouched()"
+  (reject)="onReject($event)"
+  [link]="link"
+  [label]="label"
+></tui-input-files>
+
+<tui-files class="tui-space_top-1">
+  @for (file of control.value; track $index) {
+  <tui-file
+    [file]="file"
+    [showDelete]="control.enabled"
+    (removed)="removeFile(file)"
+  ></tui-file>
+  }
+  <tui-file
+    *ngFor="let file of rejectedFiles"
+    state="error"
+    [file]="file"
+    [showDelete]="control.enabled"
+    (removed)="clearRejected(file)"
+  ></tui-file>
+</tui-files>
+
+<tui-error
+  [error]="['maxLength'] | tuiFieldError | async"
+  [formControl]="control"
+></tui-error>
