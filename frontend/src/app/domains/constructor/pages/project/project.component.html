@@ -23,13 +23,12 @@
   @switch (tabsIndex()) { @case (0) {
   <app-project-detail [project]="$any(project())" />
   }@case(1){
-  <app-ui-feedback [empty]="!applications()?.length" [error]="error()">
-    <div>
-      @for(application of applications(); track $index){
-      <app-application-detail [application]="application" />
-      }
-    </div>
-  </app-ui-feedback>
+  <app-ui-feedback [empty]="!applications()?.length" [error]="error()" />
+  <div>
+    @for(application of applications(); track $index){
+    <app-application-detail [application]="application" />
+    }
+  </div>
 
   } } }
 </app-ui-feedback>

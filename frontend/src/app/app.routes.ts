@@ -57,6 +57,14 @@ export const routes: Routes = [
     title: 'Marble Space - Supplier',
     component: SupplierLayoutComponent,
     canActivate: [SupplierGuard],
-    children: [],
+    children: [
+      {
+        path: '',
+        loadComponent: () =>
+          import(
+            '@/supplier/pages/supplier-dashboard/supplier-dashboard.component'
+          ),
+      },
+    ],
   },
 ];

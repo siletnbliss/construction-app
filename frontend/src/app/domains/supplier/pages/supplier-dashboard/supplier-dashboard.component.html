@@ -1,0 +1,10 @@
+<h3 class="tui-text_h4 mb-10">Explore Projects</h3>
+<app-ui-feedback
+  [loading]="loading()"
+  [empty]="!projects().length"
+  [error]="error()"
+  emptyMessage="We couldn't find any project :("
+  errorMessage="Try reloading this page again"
+>
+  <app-project-list [projects]="projects()" />
+</app-ui-feedback>
