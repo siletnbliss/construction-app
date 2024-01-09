@@ -119,7 +119,6 @@ export class ApplicationRepository {
   }
 
   async findMany(dto: { projectId: string; providerId: string }) {
-    console.log({ projectId: dto.projectId });
     const lookup = dto.projectId
       ? PROJECT_LOOKUP(dto.projectId)
       : PROVIDER_LOOKUP(dto.providerId as string);

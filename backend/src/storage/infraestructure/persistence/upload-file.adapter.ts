@@ -43,9 +43,6 @@ export class UploadFileAdapter implements UploadFilePort {
       uploadTask.ref.bucket,
       uploadTask.metadata.fullPath,
     );
-    console.log({
-      uploadedTo,
-    });
 
     return {
       name: uploadTask.metadata.name,
