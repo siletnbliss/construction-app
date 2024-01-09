@@ -16,6 +16,32 @@ const BASE_LOOKUP = [
       localField: '_id',
       foreignField: 'applicationId',
       as: 'items',
+      pipeline: [
+        {
+          $lookup: {
+            from: 'projectitems',
+            localField: 'itemId',
+            foreignField: '_id',
+            as: 'projectItem',
+          },
+        },
+        { $unwind: '$projectItem' },
+      ],
+    },
+  },
+  {
+    $lookup: {
+      from: 'users',
+      localField: 'providerId',
+      foreignField: '_id',
+      as: 'provider',
+    },
+  },
+
+  { $unwind: '$provider' },
+  {
+    $project: {
+      provider: { password: 0, context: 0 },
     },
   },
 ];

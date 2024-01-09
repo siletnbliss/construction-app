@@ -29,6 +29,21 @@ const LOOKUP = [
       as: 'images',
     },
   },
+  {
+    $lookup: {
+      from: 'users',
+      localField: 'ownerId',
+      foreignField: '_id',
+      as: 'owner',
+    },
+  },
+
+  { $unwind: '$owner' },
+  {
+    $project: {
+      owner: { password: 0, context: 0 },
+    },
+  },
 ];
 
 @Injectable()
