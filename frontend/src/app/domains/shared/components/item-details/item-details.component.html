@@ -1,0 +1,15 @@
+<h3 class="tui-text_h5 mb-5">Project requirements</h3>
+
+<div class="grid grid-cols-3">
+  <h6 class="tui-text_body-l text-gray-600 font-semibold">Name</h6>
+  <h6 class="tui-text_body-l font-semibold">Quantity</h6>
+  <h6 class="tui-text_body-l font-semibold">Unit Price</h6>
+  <hr class="solid col-span-3 h-0.5 mt-5 mb-3" />
+  @for (item of project.items; track $index) {
+  <div>{{ item.name }}</div>
+  <div>{{ item.quantity }}</div>
+  <div>{{ item.unitPrice | currency }}</div>
+  <hr class="solid col-span-3 h-0.5 my-3" />
+
+  }
+</div>

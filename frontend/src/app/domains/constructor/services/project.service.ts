@@ -15,6 +15,12 @@ export class ProjectService {
     return this.http.get<Project[]>(`${API_URL}/construction/project`);
   }
 
+  getSingleProject(projectId: string) {
+    return this.http.get<Project>(
+      `${API_URL}/construction/project/${projectId}`
+    );
+  }
+
   createProjects(dto: CreateProject) {
     const formData = new FormData();
     Object.entries(dto).forEach(([key, value]) => {

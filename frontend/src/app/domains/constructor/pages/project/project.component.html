@@ -1,0 +1,35 @@
+<app-ui-feedback
+  [loading]="loading()"
+  [empty]="!project"
+  [error]="error()"
+  emptyMessage="We couldn't load your project"
+  errorMessage="Something went wrong while loading your project"
+>
+  @if (!!project()) {
+  <tui-tabs
+    [activeItemIndex]="tabsIndex()"
+    (activeItemIndexChange)="setTabsIndex($event)"
+    class="mb-5"
+  >
+    <button tuiTab>
+      <tui-svg src="tuiIconInfo" class="tui-space_right-2"></tui-svg>
+      Description
+    </button>
+    <button tuiTab>
+      <tui-svg src="tuiIconList" class="tui-space_right-2"></tui-svg>
+      Applications
+    </button>
+  </tui-tabs>
+  @switch (tabsIndex()) { @case (0) {
+  <app-project-detail [project]="$any(project())" />
+  }@case(1){
+  <app-ui-feedback [empty]="!applications()?.length" [error]="error()">
+    <div>
+      @for(application of applications(); track $index){
+      <app-application-detail [application]="application" />
+      }
+    </div>
+  </app-ui-feedback>
+
+  } } }
+</app-ui-feedback>

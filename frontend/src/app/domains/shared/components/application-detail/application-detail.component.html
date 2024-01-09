@@ -1,0 +1,40 @@
+<tui-island size="m" class="p-10">
+  <div class="flex justify-between items-center">
+    <div>
+      <div class="title font-semibold">
+        {{ application.provider.name }}
+      </div>
+      <div>{{ application.provider.email }}</div>
+    </div>
+    <div class="flex gap-2 items-center">
+      <tui-svg src="tuiIconClock" />
+      <span>{{ application.date | date }}</span>
+    </div>
+  </div>
+  <div class="grid grid-cols-3 my-5">
+    <h6 class="tui-text_body-l text-gray-600 font-semibold">Name</h6>
+    <h6 class="tui-text_body-l font-semibold">Quantity</h6>
+    <h6 class="tui-text_body-l font-semibold">Unit Price</h6>
+    <hr class="solid col-span-3 h-0.5 mt-5 mb-3" />
+    @for (item of application.items; track $index) {
+    <div>{{ item.projectItem.name }}</div>
+    <div>{{ item.projectItem.quantity }}</div>
+    <div>
+      @if (item.unitPrice) {
+      <div class="flex flex-col">
+        <div class="line-through text-xs text-gray-400">
+          {{ item.projectItem.unitPrice | currency }}
+        </div>
+
+        <div>{{ item.unitPrice | currency }}</div>
+      </div>
+
+      }@else {
+      <div>{{ item.projectItem.unitPrice | currency }}</div>
+      }
+    </div>
+    <hr class="solid col-span-3 h-0.5 my-3" />
+
+    }
+  </div>
+</tui-island>

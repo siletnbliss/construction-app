@@ -1,0 +1,60 @@
+<div class="flex flex-col gap-5 lg:flex-row justify-stretch">
+  <div class="flex w-full lg:w-1/2 gap-5 flex-col items-center">
+    <tui-carousel
+      [draggable]="true"
+      [index]="galleryIndex()"
+      [duration]="5000"
+      [itemsCount]="1"
+      (indexChange)="setGalleryIndex($event)"
+      class="max-w-sm"
+    >
+      @for (img of project.images; track $index) {
+      <div *tuiItem class="w-full h-full">
+        <img class="object-cover w-full h-full" [src]="img.url" alt="" />
+      </div>
+      }
+    </tui-carousel>
+    <tui-pagination
+      size="s"
+      class="pagination"
+      [length]="project.images.length"
+      (indexChange)="setGalleryIndex($event)"
+      [index]="galleryIndex()"
+    />
+  </div>
+  <div class="flex flex-col w-full gap-2">
+    <h3 class="tui-text_h3">{{ project.title }}</h3>
+    <h3
+      class="tui-text_h6 flex mt-2 mb-5 items-center gap-2"
+      style="color: #6788ff"
+    >
+      <tui-svg src="tuiIconUserLarge" />
+
+      {{ project.owner.name }}
+      <span class="text-md font-semibold text-gray-500">
+        ({{ project.owner.email }} )</span
+      >
+    </h3>
+
+    <div class="my-2 flex gap-2 text-gray-500 justify-between flex-wrap">
+      <div class="flex">
+        <tui-svg src="tuiIconMapPin" />
+        <p class="line-clamp-2">{{ project.location }}</p>
+      </div>
+      <div class="flex">
+        <tui-svg src="tuiIconHash" />
+        <p class="line-clamp-2">{{ project.items.length }} item requirements</p>
+      </div>
+      <div class="flex">
+        <tui-svg src="tuiIconCalendar" />
+        <div class="">
+          <p class="">{{ project.startDate | date }}</p>
+          <p>{{ project.finishDate | date }}</p>
+        </div>
+      </div>
+    </div>
+    <p class="mb-5 text-justify">{{ project.description }}</p>
+
+    <app-item-details [project]="project" />
+  </div>
+</div>

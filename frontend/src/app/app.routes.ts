@@ -45,6 +45,11 @@ export const routes: Routes = [
         loadComponent: () =>
           import('@/constructor/pages/create-items/create-items.component'),
       },
+      {
+        path: 'project/:id',
+        loadComponent: () =>
+          import('@/constructor/pages/project/project.component'),
+      },
     ],
   },
   {
