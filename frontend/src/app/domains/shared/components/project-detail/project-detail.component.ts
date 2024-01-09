@@ -1,9 +1,13 @@
-import { Component, Input, signal } from '@angular/core';
+import { Component, EventEmitter, Input, Output, signal } from '@angular/core';
 import { Project } from '../../models/project';
 import { TuiTableModule } from '@taiga-ui/addon-table';
-import { TuiCarouselModule, TuiPaginationModule } from '@taiga-ui/kit';
+import {
+  TuiBadgeModule,
+  TuiCarouselModule,
+  TuiPaginationModule,
+} from '@taiga-ui/kit';
 import { CommonModule } from '@angular/common';
-import { TuiSvgModule } from '@taiga-ui/core';
+import { TuiButtonModule, TuiSvgModule } from '@taiga-ui/core';
 import { ItemDetailsComponent } from '../item-details/item-details.component';
 
 @Component({
@@ -15,7 +19,9 @@ import { ItemDetailsComponent } from '../item-details/item-details.component';
     TuiPaginationModule,
     TuiSvgModule,
     CommonModule,
+    TuiBadgeModule,
     ItemDetailsComponent,
+    TuiButtonModule,
   ],
   templateUrl: './project-detail.component.html',
   styleUrl: './project-detail.component.scss',
@@ -24,7 +30,18 @@ export class ProjectDetailComponent {
   @Input({ required: true })
   project!: Project;
 
+  @Input({ required: true })
+  cta!: string;
+
+  @Output()
+  onCta = new EventEmitter<void>();
+
   galleryIndex = signal(0);
+
+  handleCta() {
+    this.onCta.emit();
+  }
+
   setGalleryIndex(index: number) {
     this.galleryIndex.set(index);
   }

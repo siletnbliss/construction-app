@@ -14,7 +14,7 @@ export class SupplierLayoutComponent {
     {
       title: 'Dashboard',
       icon: 'tuiIconHomeLarge',
-      link: '/construction',
+      link: '/supplier',
     },
   ];
 }

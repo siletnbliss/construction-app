@@ -65,6 +65,13 @@ export const routes: Routes = [
             '@/supplier/pages/supplier-dashboard/supplier-dashboard.component'
           ),
       },
+      {
+        path: 'project/:id',
+        loadComponent: () =>
+          import(
+            '@/supplier/pages/supplier-project/supplier-project.component'
+          ),
+      },
     ],
   },
 ];

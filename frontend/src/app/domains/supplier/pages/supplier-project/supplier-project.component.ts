@@ -1,18 +1,18 @@
-import { ProjectService } from '@/constructor/services/project.service';
-import { UiFeedbackComponent } from '@/shared/components/ui-feedback/ui-feedback.component';
-import { Project } from '@/shared/models/project';
+import { ApplicationDetailComponent } from '@/shared/components/application-detail/application-detail.component';
 import { ProjectDetailComponent } from '@/shared/components/project-detail/project-detail.component';
+import { UiFeedbackComponent } from '@/shared/components/ui-feedback/ui-feedback.component';
+import { Application } from '@/shared/models/application';
+import { Project } from '@/shared/models/project';
+import { ApplicationService } from '@/supplier/services/application.service';
+import { FetchProjectService } from '@/supplier/services/fetch-projects.service';
 import { CommonModule } from '@angular/common';
 import { Component, Input, inject, signal } from '@angular/core';
+import { Router } from '@angular/router';
 import { TuiSvgModule, tuiDropdownAnimation } from '@taiga-ui/core';
 import { TuiTabsModule } from '@taiga-ui/kit';
-import { ProjectApplicationsService } from '@/constructor/services/project-applications.service';
-import { Application } from '@/shared/models/application';
-import { ApplicationDetailComponent } from '@/shared/components/application-detail/application-detail.component';
-import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-project',
+  selector: 'app-supplier-project',
   standalone: true,
   imports: [
     TuiTabsModule,
@@ -22,17 +22,17 @@ import { Router } from '@angular/router';
     CommonModule,
     ApplicationDetailComponent,
   ],
-  templateUrl: './project.component.html',
-  styleUrl: './project.component.scss',
+  templateUrl: './supplier-project.component.html',
+  styleUrl: './supplier-project.component.scss',
   animations: [tuiDropdownAnimation],
 })
-export default class ProjectComponent {
-  private projectService = inject(ProjectService);
-  private applicationService = inject(ProjectApplicationsService);
+export default class SupplierProjectComponent {
+  private projectService = inject(FetchProjectService);
+  private applicationService = inject(ApplicationService);
   private router = inject(Router);
   project = signal<Project | null>(null);
 
-  applications = signal<Application[] | null>(null);
+  application = signal<Application | null>(null);
 
   loading = signal(false);
   error = signal(false);
@@ -47,7 +47,7 @@ export default class ProjectComponent {
 
   setTabsIndex(index: number) {
     this.tabsIndex.set(index);
-    this.router.navigate(['construction', 'project', this.id], {
+    this.router.navigate(['supplier', 'project', this.id], {
       queryParams: { tab: index },
     });
   }
@@ -55,9 +55,9 @@ export default class ProjectComponent {
   ngOnInit() {
     if (this.tab) this.setTabsIndex(parseInt(this.tab));
     this.loading.set(true);
-    this.applicationService.getApplications(this.id).subscribe({
+    this.applicationService.getApplication(this.id).subscribe({
       next: (value) => {
-        this.applications.set(value);
+        this.application.set(value);
       },
       error: () => {
         this.error.set(true);

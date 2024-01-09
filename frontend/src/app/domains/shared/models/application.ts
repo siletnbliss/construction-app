@@ -7,6 +7,7 @@ export interface Application {
     email: string;
     name: string;
   };
+
   project: Project;
 }
 

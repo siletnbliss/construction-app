@@ -17,21 +17,23 @@
     </button>
     <button tuiTab>
       <tui-svg src="tuiIconList" class="tui-space_right-2"></tui-svg>
-      Applications
+      Apply
     </button>
   </tui-tabs>
   @switch (tabsIndex()) { @case (0) {
   <app-project-detail
     [project]="$any(project())"
-    cta="View Applications"
+    cta="Apply"
     (onCta)="setTabsIndex(1)"
   />
   }@case(1){
-  <app-ui-feedback [empty]="!applications()?.length" [error]="error()" />
   <div>
-    @for(application of applications(); track $index){
-    <app-application-detail [application]="application" />
-    }
+    <app-ui-feedback [error]="error()">
+      @if (!!application()) {
+      <app-application-detail [application]="$any(application())" />
+
+      }@else { add form }
+    </app-ui-feedback>
   </div>
 
   } } }

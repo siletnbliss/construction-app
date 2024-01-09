@@ -23,18 +23,29 @@
     />
   </div>
   <div class="flex flex-col w-full gap-2">
-    <h3 class="tui-text_h3">{{ project.title }}</h3>
-    <h3
-      class="tui-text_h6 flex mt-2 mb-5 items-center gap-2"
-      style="color: #6788ff"
-    >
-      <tui-svg src="tuiIconUserLarge" />
-
-      {{ project.owner.name }}
-      <span class="text-md font-semibold text-gray-500">
-        ({{ project.owner.email }} )</span
+    <div>
+      <div>
+        <h3 class="tui-text_h3">{{ project.title }}</h3>
+        <h3
+          class="tui-text_h6 flex mt-2 mb-5 items-center gap-2"
+          style="color: #6788ff"
+        >
+          <tui-svg src="tuiIconUserLarge" />
+          {{ project.owner.name }}
+          <span class="text-md font-semibold text-gray-500">
+            ({{ project.owner.email }} )</span
+          >
+        </h3>
+      </div>
+      <button
+        iconRight="tuiIconArrowUpRight"
+        tuiButton
+        class="mb-5 w-fit"
+        (click)="handleCta()"
       >
-    </h3>
+        {{ cta }}
+      </button>
+    </div>
 
     <div class="my-2 flex gap-2 text-gray-500 justify-between flex-wrap">
       <div class="flex">
@@ -53,6 +64,7 @@
         </div>
       </div>
     </div>
+
     <p class="mb-5 text-justify">{{ project.description }}</p>
 
     <app-item-details [project]="project" />
