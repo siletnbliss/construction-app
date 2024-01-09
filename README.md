@@ -4,8 +4,6 @@ Full stack application built with NestJS and Angular, this app allows constructi
 
 ## Project structure
 
-TODO:
+This project is a monorepo, where the frontend and backend folders hold completely isolated components.
 
-## How to run
-
-TODO:
+For more information, consult each project's README.
