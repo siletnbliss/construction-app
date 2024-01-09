@@ -58,11 +58,9 @@ export default class LoginComponent {
 
     this.authService.login({ email, password }).subscribe({
       next: () => {
-        console.log('Yippeeee');
         this.loading.set(false);
       },
       error: (err) => {
-        console.log(err);
         const parsedError = parseHttpError(err, { 401: 'Invalid Credentials' });
         this.error.set(parsedError);
         this.loading.set(false);
