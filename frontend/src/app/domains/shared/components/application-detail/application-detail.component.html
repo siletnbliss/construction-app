@@ -20,7 +20,7 @@
     <div>{{ item.projectItem.name }}</div>
     <div>{{ item.projectItem.quantity }}</div>
     <div>
-      @if (item.unitPrice) {
+      @if (item.unitPrice && item.unitPrice !==item.projectItem.unitPrice) {
       <div class="flex flex-col">
         <div class="line-through text-xs text-gray-400">
           {{ item.projectItem.unitPrice | currency }}

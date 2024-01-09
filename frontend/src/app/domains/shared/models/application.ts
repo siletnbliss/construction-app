@@ -14,12 +14,12 @@ export interface Application {
 export interface CreateApplication {
   items: {
     itemId: string;
-    unitPrice?: number;
-  };
+    unitPrice?: number | null;
+  }[];
 }
 
 export interface ApplicationItem {
   itemId: string;
-  unitPrice?: string;
+  unitPrice?: number;
   projectItem: ProjectItem;
 }

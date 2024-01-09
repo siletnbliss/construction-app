@@ -17,6 +17,7 @@ export interface Project {
 }
 
 export interface ProjectItem {
+  id: string;
   name: string;
   quantity: number;
   unitPrice: number;

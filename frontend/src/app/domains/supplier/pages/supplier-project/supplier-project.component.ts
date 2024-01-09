@@ -3,6 +3,7 @@ import { ProjectDetailComponent } from '@/shared/components/project-detail/proje
 import { UiFeedbackComponent } from '@/shared/components/ui-feedback/ui-feedback.component';
 import { Application } from '@/shared/models/application';
 import { Project } from '@/shared/models/project';
+import { ApplicationFormComponent } from '@/supplier/components/application-form/application-form.component';
 import { ApplicationService } from '@/supplier/services/application.service';
 import { FetchProjectService } from '@/supplier/services/fetch-projects.service';
 import { CommonModule } from '@angular/common';
@@ -21,6 +22,7 @@ import { TuiTabsModule } from '@taiga-ui/kit';
     UiFeedbackComponent,
     CommonModule,
     ApplicationDetailComponent,
+    ApplicationFormComponent,
   ],
   templateUrl: './supplier-project.component.html',
   styleUrl: './supplier-project.component.scss',
@@ -52,9 +54,11 @@ export default class SupplierProjectComponent {
     });
   }
 
-  ngOnInit() {
-    if (this.tab) this.setTabsIndex(parseInt(this.tab));
-    this.loading.set(true);
+  handleApplicationSubmit() {
+    this.loadApplication();
+  }
+
+  private loadApplication() {
     this.applicationService.getApplication(this.id).subscribe({
       next: (value) => {
         this.application.set(value);
@@ -63,6 +67,12 @@ export default class SupplierProjectComponent {
         this.error.set(true);
       },
     });
+  }
+
+  ngOnInit() {
+    if (this.tab) this.setTabsIndex(parseInt(this.tab));
+    this.loading.set(true);
+    this.loadApplication();
     this.projectService.getSingleProject(this.id).subscribe({
       next: (value) => {
         this.loading.set(false);

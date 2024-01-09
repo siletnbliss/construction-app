@@ -1,5 +1,5 @@
 import { environment } from '@/environments/environment';
-import { Application } from '@/shared/models/application';
+import { Application, CreateApplication } from '@/shared/models/application';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
@@ -12,6 +12,13 @@ export class ApplicationService {
   getApplication(projectId: string) {
     return this.http.get<Application>(
       `${environment.apiUrl}/provider/project/${projectId}/application`
+    );
+  }
+
+  createApplication(projectId: string, dto: CreateApplication) {
+    return this.http.post<Application>(
+      `${environment.apiUrl}/provider/project/${projectId}/application`,
+      dto
     );
   }
 }

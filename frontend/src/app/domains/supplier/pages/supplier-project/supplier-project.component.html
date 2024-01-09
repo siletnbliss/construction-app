@@ -32,7 +32,12 @@
       @if (!!application()) {
       <app-application-detail [application]="$any(application())" />
 
-      }@else { add form }
+      }@else {
+      <app-application-form
+        [project]="$any(project())"
+        (onSuccess)="handleApplicationSubmit()"
+      />
+      }
     </app-ui-feedback>
   </div>
 

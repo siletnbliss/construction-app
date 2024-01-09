@@ -20,7 +20,6 @@ import {
   TuiErrorModule,
   TuiGroupModule,
   TuiTextfieldControllerModule,
-  TuiTextfieldPrefixDirective,
 } from '@taiga-ui/core';
 import {
   TuiElasticContainerModule,
@@ -30,7 +29,7 @@ import {
 } from '@taiga-ui/kit';
 
 type FormGroupControls = {
-  [K in keyof ProjectItem]: FormControl<ProjectItem[K] | null>;
+  [K in keyof Omit<ProjectItem, 'id'>]: FormControl<ProjectItem[K] | null>;
 };
 
 @Component({

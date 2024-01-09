@@ -1,0 +1,94 @@
+<div class="max-w-screen-md mx-auto">
+  <div class="flex flex-col gap-5">
+    <h3 class="tui-text_h4 text-center">1. Select items to supply:</h3>
+    <tui-multi-select
+      [expandable]="true"
+      [formControl]="selectedItems"
+      [tuiTextfieldLabelOutside]="true"
+      tuiTextfieldSize="l"
+      [stringify]="stringify"
+    >
+      Select items to include in your application
+      <tui-data-list-wrapper
+        *tuiDataList
+        [itemContent]="itemContent"
+        [items]="project.items"
+      >
+      </tui-data-list-wrapper>
+    </tui-multi-select>
+  </div>
+
+  <ng-template #itemContent let-data>
+    <div class="template flex justify-between mx-5">
+      <div>
+        {{ data.name }}
+      </div>
+      <div class="italic">
+        {{ data.quantity }}
+        x
+        {{ data.unitPrice | currency }}
+      </div>
+    </div>
+  </ng-template>
+
+  <tui-elastic-container>
+    @if ( form.length) {
+
+    <h3 class="tui-text_h4 my-10 text-center">
+      2.Suggest alternate prices, if needed:
+    </h3>
+    @for (control of form.controls; track $index) {
+    <form [formGroup]="control" class="flex flex-col">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-0">
+        <div class="flex gap-5">
+          <label tuiLabel="Item">
+            <tui-tag
+              status="primary"
+              class="h-full"
+              size="l"
+              [value]="$any(control.value.item?.name)"
+            />
+          </label>
+          <label tuiLabel="Quantity">
+            <tui-tag size="l" [value]="$any(control.value.item?.quantity)" />
+          </label>
+          <label tuiLabel="Unit Price">
+            <tui-tag
+              class="h-full"
+              size="l"
+              [value]="$any(control.value.item?.unitPrice | currency)"
+            />
+          </label>
+        </div>
+        <div>
+          <tui-input-number
+            [min]="0"
+            formControlName="unitPrice"
+            [tuiTextfieldPrefix]="'USD' | tuiCurrency"
+          >
+            Alternate Unit Price
+          </tui-input-number>
+          <tui-error
+            formControlName="unitPrice"
+            [error]="[] | tuiFieldError | async"
+          ></tui-error>
+        </div>
+      </div>
+
+      <hr
+        *ngIf="$index !== form.controls.length - 1"
+        class="solid h-0.5 mx-20 my-8"
+      />
+    </form>
+    } }
+  </tui-elastic-container>
+  <button
+    class="mt-10"
+    tuiButton
+    [disabled]="!form.valid || loading()"
+    [showLoader]="loading()"
+    (click)="handleSubmit()"
+  >
+    Submit Application
+  </button>
+</div>
